@@ -1,0 +1,16 @@
+/* Arquivo de cores - Monte Sinai Clínica */
+
+:root {
+  /* Cores principais */
+  --azul-principal: #29ABE2;
+  --verde-principal: #36D4B5;
+  --azul-textos: #333385;
+  --azul-icones: #21317C;
+  
+  /* Cores neutras */
+  --branco: #ffffff;
+  --preto: #000000;
+  --cinza-claro: #f8f9fa;
+  --cinza-medio: #6c757d;
+  --cinza-escuro: #343a40;
+}
