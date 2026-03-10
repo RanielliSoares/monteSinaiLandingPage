@@ -98,6 +98,42 @@ body {
     box-shadow: 0 4px 8px rgba(54, 212, 181, 0.3);
 }
 
+/* Botão Flutuante WhatsApp */
+.whatsapp-float {
+    display: none;
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 56px;
+    height: 56px;
+    background-color: var(--azul-icones);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+}
+
+.whatsapp-float svg {
+    width: 30px;
+    height: 30px;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: var(--azul-principal);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 861px) {
+    .whatsapp-float {
+        display: flex;
+    }
+}
+
 /* Menu Hambúrguer (Mobile) */
 .nav-toggle {
     display: none;
@@ -207,7 +243,7 @@ body {
 /* RESPONSIVIDADE */
 
 /* Tablet */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 861px) {
     .nav-menu {
         position: fixed;
         left: -100%;
@@ -215,11 +251,18 @@ body {
         flex-direction: column;
         background-color: var(--azul-textos);
         width: 100%;
+        height: auto;
+        min-height: fit-content;
         text-align: center;
         transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 2rem 0;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.2);
+        padding: 2rem 0 2.5rem 0;
         gap: 0;
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        align-items: center;
+        z-index: 999;
     }
 
     .nav-menu.active {
@@ -232,6 +275,10 @@ body {
 
     .nav-toggle {
         display: flex;
+    }
+
+    .nav-cta {
+        display: none;
     }
 
     .nav-toggle.active .bar:nth-child(2) {
@@ -299,31 +346,6 @@ body {
     }
 
 
-}
-
-/* ANIMAÇÕES */
-.banner-text-box, .servicos-content, .servico-card {
-    opacity: 0;
-    transform: translateY(-30px);
-    transition: all 0.8s ease;
-    transition-delay: 0.2s;
-}
-
-.banner-text-box.animate-in, .servicos-content.animate-in, .servico-card.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.servico-card:nth-child(1) {
-    transition-delay: 0.4s;
-}
-
-.servico-card:nth-child(2) {
-    transition-delay: 0.6s;
-}
-
-.servico-card:nth-child(3) {
-    transition-delay: 0.8s;
 }
 
 /* Estado ativo do menu */
@@ -561,5 +583,443 @@ body {
 
     .servico-descricao {
         font-size: 0.9rem;
+    }
+}
+
+/* SEÇÃO AGENDAMENTO */
+.agendamento {
+    background-color: var(--azul-textos);
+    padding: 5rem 0;
+}
+
+.agendamento-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.agendamento-texto {
+    flex: 1;
+}
+
+.agendamento-titulo {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--branco);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.agendamento-subtitulo {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+}
+
+.agendamento-card {
+    flex: 0 0 380px;
+    background-color: var(--branco);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.agendamento-card-header {
+    background-color: var(--verde-principal);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--branco);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.agendamento-card-header svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.agendamento-form {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.agendamento-field {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1.5px solid #d0d0d0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.agendamento-field input {
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--azul-textos);
+    padding: 0.4rem 0;
+    background: transparent;
+    width: 100%;
+}
+
+.agendamento-field input::placeholder {
+    color: var(--azul-textos);
+    opacity: 0.85;
+    font-weight: 500;
+}
+
+.agendamento-hint {
+    font-size: 0.75rem;
+    color: var(--verde-principal);
+    margin-top: 0.2rem;
+}
+
+.agendamento-btn {
+    margin-top: 0.5rem;
+    background-color: var(--azul-icones);
+    color: var(--branco);
+    border: none;
+    padding: 0.7rem 1.8rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.agendamento-btn:hover {
+    background-color: var(--azul-principal);
+    transform: translateY(-1px);
+}
+
+/* RESPONSIVIDADE - AGENDAMENTO */
+@media screen and (max-width: 861px) {
+    .agendamento-container {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .agendamento-card {
+        flex: none;
+        width: 100%;
+        max-width: 460px;
+    }
+
+    .agendamento-titulo {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .agendamento-subtitulo {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .agendamento {
+        padding: 3rem 0;
+    }
+
+    .agendamento-container {
+        padding: 0 1rem;
+    }
+
+    .agendamento-titulo {
+        font-size: 1.7rem;
+    }
+}
+
+/* SEÇÃO NOSSA ESTRUTURA */
+.estrutura {
+    background-color: var(--azul-textos);
+    padding: 4rem 0;
+    border-top: 3px solid var(--branco);
+}
+
+.estrutura-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.estrutura-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--verde-principal);
+    margin-bottom: 1.5rem;
+}
+
+.estrutura-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--branco);
+    max-width: 780px;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+}
+
+.estrutura-galeria {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.estrutura-foto {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.estrutura-foto img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.estrutura-foto:hover img {
+    transform: scale(1.05);
+}
+
+/* RESPONSIVIDADE - ESTRUTURA */
+@media screen and (max-width: 768px) {
+    .estrutura {
+        padding: 3rem 0;
+    }
+
+    .estrutura-container {
+        padding: 0 1rem;
+    }
+
+    .estrutura-galeria {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .estrutura-foto img {
+        height: 180px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .estrutura-title {
+        font-size: 1.6rem;
+    }
+
+    .estrutura-galeria {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+    }
+
+    .estrutura-foto img {
+        height: 140px;
+    }
+}
+
+/* SEÇÃO LOCALIZAÇÃO */
+.localizacao {
+    background-color: var(--azul-textos);
+    padding: 4rem 0;
+    border-top: 3px solid var(--branco);
+}
+
+.localizacao-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.localizacao-info {
+    flex: 1;
+}
+
+.localizacao-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--branco);
+    margin-bottom: 2.5rem;
+}
+
+.localizacao-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.localizacao-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    color: var(--branco);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.localizacao-icone {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--verde-principal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--verde-principal);
+    margin-top: 2px;
+    padding: 4px;
+}
+
+.localizacao-icone svg {
+    width: 100%;
+    height: 100%;
+}
+
+.localizacao-imagem {
+    flex: 0 0 auto;
+    width: 340px;
+}
+
+.localizacao-imagem img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    border: 10px solid var(--branco);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* RESPONSIVIDADE - LOCALIZAÇÃO */
+@media screen and (max-width: 900px) {
+    .localizacao-container {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .localizacao-imagem {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .localizacao {
+        padding: 3rem 0;
+    }
+
+    .localizacao-container {
+        padding: 0 1rem;
+    }
+
+    .localizacao-title {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+    }
+
+    .localizacao-item {
+        font-size: 0.95rem;
+    }
+}
+
+/* RODAPÉ */
+.footer {
+    background-color: var(--branco);
+    border-top: 1px solid #e0e0e0;
+    padding: 1.5rem 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: var(--cinza-medio);
+    flex: 1;
+}
+
+.footer-logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-logo img {
+    height: 45px;
+    width: auto;
+}
+
+.footer-social {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.footer-social-link {
+    width: 38px;
+    height: 38px;
+    background-color: var(--azul-icones);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+
+.footer-social-link:hover {
+    background-color: var(--azul-principal);
+    transform: translateY(-2px);
+}
+
+.footer-social-link svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* RESPONSIVIDADE - RODAPÉ */
+@media screen and (max-width: 600px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+        padding: 0 1rem;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    .footer-copyright {
+        order: 3;
+    }
+
+    .footer-logo {
+        order: 1;
+    }
+
+    .footer-social {
+        order: 2;
     }
 }

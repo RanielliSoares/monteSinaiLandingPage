@@ -1,3 +1,4 @@
+
 // JavaScript para Menu Hambúrguer e Funcionalidades da Landing Page
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -89,65 +90,126 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listeners para scroll
     window.addEventListener('scroll', function() {
         headerScroll();
         setActiveNav();
     });
 
-    // Executar uma vez no carregamento
     headerScroll();
     setActiveNav();
 
-    // Animações de entrada
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    // Formulário de Agendamento via WhatsApp
+    const formAgendamento = document.getElementById('form-agendamento');
+    if (formAgendamento) {
+        formAgendamento.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const servico = document.getElementById('servico').value.trim();
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
+            const mensagem = `Olá! Gostaria de agendar um atendimento.\n\n*Nome:* ${nome}\n*WhatsApp:* ${whatsapp}\n*Serviço:* ${servico}`;
+            const url = `https://wa.me/5515996728523?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
         });
-    }, observerOptions);
+    }
 
-    // Observar elementos para animação
-    const animatedElements = document.querySelectorAll('.banner-text-box, .servicos-content, .servico-card');
-    animatedElements.forEach(el => observer.observe(el));
+    // ─── GSAP ANIMATIONS ───────────────────────────────────────────
+    if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Remove animações CSS antigas para evitar conflito
+        document.querySelectorAll('.banner-text-box, .servicos-content, .servico-card').forEach(el => {
+            el.style.opacity = '';
+            el.style.transform = '';
+        });
+
+        // BANNER — logo e nav entram de cima
+       // gsap.from('.nav-logo', { duration: 0.7, y: -30, opacity: 0, ease: 'power2.out' });
+        //gsap.from('.nav-menu .nav-item', { duration: 0.5, y: -20, opacity: 0, stagger: 0.1, ease: 'power2.out', delay: 0.2 });
+        //gsap.from('.nav-cta', { duration: 0.5, y: -20, opacity: 0, ease: 'power2.out', delay: 0.5 });
+
+        // BANNER — caixa de texto sobe
+      //  gsap.from('.banner-text-box', {
+       //     duration: 3,
+       //     y: 60,
+       //     opacity: 0,
+       //     ease: 'power3.out',
+       //     delay: 0.3
+       // });
+
+        // SERVIÇOS — título e texto da esquerda
+        gsap.from('.servicos-content', {
+            scrollTrigger: { trigger: '.servicos', start: 'top 80%', once: true },
+            immediateRender: false,
+            duration: 0.9, x: -60, opacity: 0, ease: 'power2.out'
+        });
+
+        // SERVIÇOS — cards sobem em cascata
+        gsap.from('.servico-card', {
+            scrollTrigger: { trigger: '.servicos-cards', start: 'top 85%', once: true },
+            immediateRender: false,
+            duration: 0.7, y: 50, opacity: 0, stagger: 0.2, ease: 'power2.out'
+        });
+
+        // AGENDAMENTO — texto da esquerda
+        gsap.from('.agendamento-texto', {
+            scrollTrigger: { trigger: '.agendamento', start: 'top 80%', once: true },
+            immediateRender: false,
+            duration: 0.9, x: -60, opacity: 0, ease: 'power2.out'
+        });
+
+        // AGENDAMENTO — card da direita
+        gsap.from('.agendamento-card', {
+            scrollTrigger: { trigger: '.agendamento', start: 'top 80%', once: true },
+            immediateRender: false,
+            duration: 0.9, x: 60, opacity: 0, ease: 'power2.out'
+        });
+
+        // ESTRUTURA — título e texto
+        gsap.from('.estrutura-title, .estrutura-text', {
+            scrollTrigger: { trigger: '.estrutura', start: 'top 80%', once: true },
+            immediateRender: false,
+            duration: 0.8, y: 30, opacity: 0, stagger: 0.15, ease: 'power2.out'
+        });
+
+        // ESTRUTURA — fotos em cascata
+        gsap.from('.estrutura-foto', {
+            scrollTrigger: { trigger: '.estrutura-galeria', start: 'top 85%', once: true },
+            immediateRender: false,
+            duration: 0.6, y: 40, opacity: 0, stagger: 0.15, ease: 'power2.out'
+        });
+
+        // LOCALIZAÇÃO — info da esquerda
+        gsap.from('.localizacao-info', {
+            scrollTrigger: { trigger: '.localizacao', start: 'top 80%', once: true },
+            immediateRender: false,
+            duration: 0.9, x: -60, opacity: 0, ease: 'power2.out'
+        });
+
+        // LOCALIZAÇÃO — imagem da direita
+        gsap.from('.localizacao-imagem', {
+            scrollTrigger: { trigger: '.localizacao', start: 'top 80%', once: true },
+            immediateRender: false,
+            duration: 0.9, x: 60, opacity: 0, ease: 'power2.out'
+        });
+
+        // RODAPÉ
+        gsap.from('.footer-copyright, .footer-logo, .footer-social', {
+            scrollTrigger: { trigger: '.footer', start: 'top 95%', once: true },
+            immediateRender: false,
+            duration: 0.6, y: 20, opacity: 0, stagger: 0.15, ease: 'power2.out'
+        });
+    }
+    // ───────────────────────────────────────────────────────────────
 
     // Preload das imagens
     const images = [
         'assets/MONTE SINAI - LOGO HORIZONTAL BRANCO E VERDE.png',
         'assets/MS - CONSULTORIO 1.png'
     ];
-
     images.forEach(imageSrc => {
         const img = new Image();
         img.src = imageSrc;
     });
-
-    // Debounce function para otimizar eventos de scroll
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // Otimizar eventos de scroll
-    const debouncedScroll = debounce(() => {
-        headerScroll();
-        setActiveNav();
-    }, 10);
-
-    window.removeEventListener('scroll', debouncedScroll);
-    window.addEventListener('scroll', debouncedScroll);
 
 });
