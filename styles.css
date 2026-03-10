@@ -742,7 +742,7 @@ body {
 
 /* SEÇÃO NOSSA ESTRUTURA */
 .estrutura {
-    background-color: var(--azul-textos);
+    background-color: var(--branco);
     padding: 4rem 0;
     border-top: 3px solid var(--branco);
 }
@@ -756,14 +756,14 @@ body {
 .estrutura-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--verde-principal);
+    color: var(--azul-principal);
     margin-bottom: 1.5rem;
 }
 
 .estrutura-text {
     font-size: 1rem;
     line-height: 1.8;
-    color: var(--branco);
+    color: var(--preto);
     max-width: 780px;
     margin-bottom: 3rem;
     opacity: 0.95;
